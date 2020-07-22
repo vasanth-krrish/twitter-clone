@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RailsTwitter</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <% if flash[:notice] %>
+      <div class="notification is-primary global-notification">
+        <p class="notice"><%= notice %></p>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="notification is-danger global-notification">
+        <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
+    <style media="screen">
+      /* We don't need checkbox to be displayed in order for it to work */
+      .toggler {
+        display: none;
+      }
+
+      /* Below are all the functionalities */
+
+      /* Hamburger changes to X when toggler is checked */
+      .navbar .toggler:checked + .navbar-brand .burger span:nth-child(1) {
+        -webkit-transform: translateY(5px) rotate(45deg);
+        transform: translateY(5px) rotate(45deg);
+      }
+      .navbar .toggler:checked + .navbar-brand .burger span:nth-child(2) {
+        opacity: 0;
+      }
+      .navbar .toggler:checked + .navbar-brand .burger span:nth-child(3) {
+        -webkit-transform: translateY(-5px) rotate(-45deg);
+        transform: translateY(-5px) rotate(-45deg);
+      }
+
+      /*  Displays menu when toggler is checked only on mobile/tablet */
+      @media screen and (max-width: 1024px) {
+        .navbar .toggler:checked ~ .navbar-menu {
+          display: block;
+        }
+        /* We don't want menu to be displayed on mobile by default */
+        .navbar-menu {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="hero is-info is-medium">
+        <div class="hero-head">
+          <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="container">
+              <input type="checkbox" id="toggler" class="toggler" />
+              <div class="navbar-brand">
+                <%= link_to root_path do %>
+                  <div class="navbar-item" style="color:white;">
+                    <i class="fa fa-twitter fa-4x" aria-hidden="true"></i>
+                    <p class="title is-5"> Clone</p>
+                  </div>
+                <% end %>
+                <label for="toggler" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                </label>
+              </div>
+              <div id="navbarBasicExample" class="navbar-menu" >
+                <div class="navbar-end">
+
+                  <div class="field is-grouped">
+                    <% if user_signed_in? %>
+                      <%= link_to current_user.name, edit_user_registration_path, class: "control navbar-item", style: "color:white;"%>
+                      <a href="/tweets/new" class="control navbar-item"><button class="button is-info is-inverted">New Tweet</button></a>
+                      <%= link_to destroy_user_session_path, class: "control navbar-item", method: :delete, data: {confirm: "Are you sure?"} do %>
+                        <button class="button is-danger">Logout</button>
+                      <% end %>
+                    <% else %>
+                      <%= link_to "Sign up", new_user_registration_path, class: "control navbar-item", style: "color:white;"%>
+                      <%= link_to "Sign in", new_user_session_path, class: "control navbar-item", style: "color:white;"%>
+                    <% end %>
+                  </div>
+
+                </div><!-- end navbar-start-->
+              </div>
+          </nav>
+        </div>
+      </section>
+    <%= yield %>
+  </body>
+</html>
