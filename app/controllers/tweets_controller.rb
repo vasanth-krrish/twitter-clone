@@ -63,6 +63,11 @@ class TweetsController < ApplicationController
     end
   end
 
+  def profile
+    @user = User.find_by(username: params[:id])
+    @followings = Following.where(user_id: current_user.id).pluck('following')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet

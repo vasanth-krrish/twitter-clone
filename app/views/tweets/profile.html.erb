@@ -1,13 +1,12 @@
-<div class="column is-one-quarter">
+<div class="column  is-half is-offset-one-fifth">
   <nav class="panel">
-    <p class="panel-heading">Profile</p>
     <div class="panel-block">
       <article class="media">
         <div class="media-left">
           <figure class="media-left">
-            <p class="image is-64x64">
-              <% if current_user.avatar.attached? %>
-                <image src="<%= url_for(current_user.avatar) %>">
+            <p class="image is-128x128">
+              <% if @user.avatar.attached? %>
+                <image src="<%= url_for(@user.avatar) %>">
               <% else %>
                 <img src="https://bulma.io/images/placeholders/64x64.png">
               <% end %>
@@ -15,10 +14,18 @@
           </figure>
         </div>
         <div class="media-content">
-          <div class="content">
+          <div class="content has-text-justified">
             <p>
-              <a href="<%= profile_path(current_user.username) %>"><strong><%= current_user.name %></strong></a><br>
-              <small><%= current_user.username %></small>
+              <strong><%= @user.name %></strong><br>
+              <small><%= @user.username %></small><br>
+              <%= @user.bio %><br>
+              <% unless @user.id == current_user.id %>
+                <% if @user.id.in?(@followings) %>
+                  <%= link_to 'Unfollow', unfollow_path(@user), method: :delete %>
+                <% else %>
+                  <%= link_to 'Follow', follow_path(@user), method: :post %>
+                <% end %>
+              <% end %>
             </p>
           </div>
         </div>
@@ -29,19 +36,19 @@
         <div class="level-item has-centered-text">
           <div>
             <p class="heading">Tweets</p>
-            <p class="title is-6"><%= current_user.tweets.count %></p>
+            <p class="title is-6"><%= @user.tweets.count %></p>
           </div>
         </div>
         <div class="level-item has-centered-text">
           <div>
             <p class="heading">Following</p>
-            <p class="title is-6"><%= Following.where(user_id: current_user.id).count %></p>
+            <p class="title is-6"><%= Following.where(user_id: @user.id).count %></p>
           </div>
         </div>
         <div class="level-item has-centered-text">
           <div>
             <p class="heading">Followers</p>
-            <p class="title is-6"><%= Following.where(following: current_user.id).count %></p>
+            <p class="title is-6"><%= Following.where(following: @user.id).count %></p>
           </div>
         </div>
       </div>
