@@ -9,16 +9,7 @@
     <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <% if flash[:notice] %>
-      <div class="notification is-primary global-notification">
-        <p class="notice"><%= notice %></p>
-      </div>
-    <% end %>
-    <% if flash[:alert] %>
-      <div class="notification is-danger global-notification">
-        <p class="alert"><%= alert %></p>
-      </div>
-    <% end %>
+
     <style media="screen">
       /* We don't need checkbox to be displayed in order for it to work */
       .toggler {
@@ -91,6 +82,16 @@
                 </div><!-- end navbar-start-->
               </div>
           </nav>
+          <% if flash[:notice] %>
+            <div class="notification is-primary global-notification">
+              <p class="notice"><%= notice %></p>
+            </div>
+          <% end %>
+          <% if flash[:alert] %>
+            <div class="notification is-danger global-notification">
+              <p class="alert"><%= alert %></p>
+            </div>
+          <% end %>
         </div>
       </section>
     <%= yield %>
