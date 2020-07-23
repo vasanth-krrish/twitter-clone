@@ -68,7 +68,7 @@
 
                   <div class="field is-grouped">
                     <% if user_signed_in? %>
-                      <%= link_to current_user.name, edit_user_registration_path, class: "control navbar-item", style: "color:white;"%>
+                      <%= link_to current_user.name, profile_path(current_user.username), class: "control navbar-item", style: "color:white;"%>
                       <a href="/tweets/new" class="control navbar-item"><button class="button is-info is-inverted">New Tweet</button></a>
                       <%= link_to destroy_user_session_path, class: "control navbar-item", method: :delete, data: {confirm: "Are you sure?"} do %>
                         <button class="button is-danger">Logout</button>
