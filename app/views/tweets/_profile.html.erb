@@ -17,10 +17,11 @@
           </figure>
         </div>
         <div class="media-content">
-          <div class="content">
+          <div class="content ">
             <p>
               <a href="<%= profile_path(current_user.username) %>"><strong><%= current_user.name %></strong></a><br>
-              <small><%= current_user.username %></small>
+              <small><%= current_user.username %><br>
+              <%= (current_user.bio) %></small>
             </p>
           </div>
         </div>
