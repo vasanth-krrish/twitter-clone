@@ -7,10 +7,15 @@
           <%= f.error_notification %>
           <figure class="media-left">
 
-              <% if current_user.avatar.attached? %>
-              <p class="image is-128x128">
-                <image src="<%= url_for(current_user.avatar) %>">
-              </p>
+              <% if current_user.avatar_shot!='' && Uploadable.count == 0 %>
+                <p class="image is-128x128">
+                  <image src="<%= current_user.avatar_shot %>" alt="">
+                </p>
+                <br>
+              <% elsif current_user.avatar.attached? %>
+                <p class="image is-128x128">
+                  <image src="<%= url_for(current_user.avatar) %>">
+                </p>
               <br>
               <% end %>
 
@@ -46,16 +51,29 @@
               </div>
             </div>
 
-            <div class="field">
-              <div class="control">
-                <%= f.input :avatar,
-                            label: "Profile Picture",
-                            autofocus: true,
-                            input_html: { class: "input" },
-                            wrapper: false,
-                            label_html: {class: "label"}%>
+            <% if Uploadable.count > 0 %>
+              <div class="field">
+                <div class="control">
+                  <%= f.input :avatar,
+                              label: "Profile Picture",
+                              autofocus: true,
+                              input_html: { class: "input" },
+                              wrapper: false,
+                              label_html: {class: "label"}%>
+                </div>
               </div>
-            </div>
+            <% else %>
+              <div class="field">
+                <div class="control">
+                  <%= f.input :avatar_shot,
+                              label: 'Profile Picture - Drop url here',
+                              hint: 'Since Heroku filesystem is ephemeral, images get deleted once the session ends. Drop the url of image stored in web here.',
+                              input_html: { class: "input" },
+                              wrapper: false,
+                              label_html: {class: "label"}%>
+                </div>
+              </div>
+            <% end %>
 
             <div class="field">
               <div class="control">

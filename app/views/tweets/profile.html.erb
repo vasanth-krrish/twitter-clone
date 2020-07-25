@@ -5,7 +5,9 @@
         <div class="media-left">
           <figure class="media-left">
             <p class="image is-128x128">
-              <% if @user.avatar.attached? %>
+              <% if @user.avatar_shot!='' && Uploadable.count==0 %>
+                <image src="<%= @user.avatar_shot %>" alt="">
+              <% elsif @user.avatar.attached? %>
                 <image src="<%= url_for(@user.avatar) %>">
               <% else %>
                 <img src="https://bulma.io/images/placeholders/64x64.png">
@@ -63,7 +65,9 @@
         <div class="media-left">
           <figure class="media-left">
             <p class="image is-64x64">
-              <% if tweet.user.avatar.attached? %>
+              <% if tweet.user.avatar_shot!='' && Uploadable.count==0 %>
+                <image src="<%= tweet.user.avatar_shot %>" alt="">
+              <% elsif tweet.user.avatar.attached? %>
                 <%= image_tag tweet.user.avatar, size: '64x64' %>
               <% else %>
                 <img src="https://bulma.io/images/placeholders/64x64.png">

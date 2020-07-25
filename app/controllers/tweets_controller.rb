@@ -17,6 +17,7 @@ class TweetsController < ApplicationController
   # GET /tweets/new
   def new
     @tweet = current_user.tweets.build
+    session[:id] = true
   end
 
   # GET /tweets/1/edit
@@ -30,7 +31,12 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_back fallback_location: root_path, notice: 'Tweet was successfully created.' }
+        if session[:id]
+          session[:id] = false
+          format.html { redirect_to tweet_path(@tweet), notice: 'Tweet was successfully created.' }
+        else
+          format.html { redirect_back fallback_location: root_path, notice: 'Tweet was successfully created.' }
+        end
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new }

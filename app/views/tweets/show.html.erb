@@ -4,7 +4,9 @@
       <div class="media-left">
         <figure class="media-left">
           <p class="image is-64x64">
-            <% if @tweet.user.avatar.attached? %>
+            <% if @tweet.user.avatar_shot!='' && Uploadable.count==0 %>
+              <image src="<%= @tweet.user.avatar_shot %>" alt="">
+            <% elsif @tweet.user.avatar.attached? %>
               <%= image_tag @tweet.user.avatar, size: '64x64' %>
             <% else %>
               <img src="https://bulma.io/images/placeholders/64x64.png">
