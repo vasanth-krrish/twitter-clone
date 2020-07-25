@@ -85,8 +85,31 @@
           <% if user_signed_in? %>
             <% if current_user.id == tweet.user_id %>
             <nav class="level">
-              <div class="field is-grouped">
-                <div class="level-left is-mobile">
+
+                <div class="level-left likes data">
+                  <div class="votes">
+                   <% if user_signed_in? %>
+                      <% if current_user.liked? tweet %>
+                        <%= link_to unlike_tweet_path(tweet), method: :put, class: 'unlike_tweet' do %>
+                            <span class="icon"><i class="fa fa-heart has-text-primary"></i></span>
+                            <span class="vote_count"><%= tweet.get_likes.size %></span>
+                        <% end %>
+                      <% else %>
+                        <%= link_to like_tweet_path(tweet), method: :put, class: 'like_tweet' do %>
+                          <span class="icon"><i class="fa fa-heart"></i></span>
+                          <span class="vote_count"><%= tweet.get_likes.size %></span>
+                        <% end %>
+                      <% end %>
+                    <% else %>
+                        <%= link_to like_tweet_path(tweet), method: :put, class: 'like_tweet' do %>
+                          <span class="icon"><i class="fa fa-heart"></i></span>
+                          <span class="vote_count"><%= tweet.get_likes.size %></span>
+                        <% end %>
+                    <% end %>
+                  </div>
+                </div>
+
+                <div class="level-right">
                   <%= link_to tweet, class: 'level-item' do %>
                     <span class="icon">
                       <i class="fa fa-link" aria-hidden='true'></i>
@@ -103,7 +126,7 @@
                     </span>
                   <% end %>
                 </div>
-              </div>
+
             </nav>
             <% end %>
           <% end %>
