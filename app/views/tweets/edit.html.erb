@@ -1,6 +1,18 @@
-<h1>Editing Tweet</h1>
+<div class="column is-three-fifths is-offset-one-fifth">
+  <article class="media box">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <image src="<%= url_for(current_user.avatar) %>">
+      </p>
+    </figure>
+    <div class="media-content">
+      <%= render 'tweets/form' %>
 
-<%= render 'form', tweet: @tweet %>
-
-<%= link_to 'Show', @tweet %> |
-<%= link_to 'Back', tweets_path %>
+    </div>
+  </article>
+  <div class="field">
+    <%= link_to root_path do %>
+      <button class="button is-info">Back</button>
+    <% end %>
+  </div>
+</div>

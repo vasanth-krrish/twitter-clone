@@ -30,7 +30,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to root_path, notice: 'Tweet was successfully created.' }
+        format.html { redirect_back fallback_location: root_path, notice: 'Tweet was successfully created.' }
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new }
@@ -66,6 +66,7 @@ class TweetsController < ApplicationController
   def profile
     @user = User.find_by(username: params[:id])
     @followings = Following.where(user_id: current_user.id).pluck('following')
+    @tweets = @user.tweets.order("created_at DESC")
   end
 
   private

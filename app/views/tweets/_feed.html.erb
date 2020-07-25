@@ -1,4 +1,4 @@
-<div class="column is-half">
+<div class="column is-8">
   <% if user_signed_in? %>
     <article class="media box">
       <figure class="media-left">
@@ -33,8 +33,9 @@
       <div class="media-content">
         <div class="content">
           <a href="<%= profile_path(tweet.user.username) %>"><strong><%= tweet.user.name %></strong><br/></a>
-          <small><%= tweet.user.username %></small><br/>
+          <small><%= tweet.user.username %></small><br/><br>
           <p><%= tweet.tweet %></p>
+          <p><%= time_ago_in_words(tweet.created_at) %> ago</p>
         </div>
         <% if user_signed_in? %>
           <% if current_user.id == tweet.user_id %>
