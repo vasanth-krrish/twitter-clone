@@ -26,6 +26,7 @@ gem 'bulma-rails', '~> 0.9.0'
 gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'image_processing', '~> 1.11'
 gem 'mini_magick', '~> 4.10', '>= 4.10.1'
+gem 'acts_as_votable', '~> 0.12.1'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

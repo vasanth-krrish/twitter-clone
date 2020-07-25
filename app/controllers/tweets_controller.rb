@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_tweet, only: [:show, :edit, :update, :destroy, :like, :unlike]
+  before_action :authenticate_user!, except: [:index, :show, :like]
 
   # GET /tweets
   # GET /tweets.json
@@ -66,6 +66,22 @@ class TweetsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tweets_url, notice: 'Tweet was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def like
+    @tweet.liked_by current_user
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path }
+      format.js { render layout: false }
+    end
+  end
+
+  def unlike
+    @tweet.unliked_by current_user
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path }
+      format.js { render layout: false }
     end
   end
 

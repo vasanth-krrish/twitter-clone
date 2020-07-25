@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
-  resources :tweets
+  resources :tweets do
+    member do
+      put 'like', to: "tweets#like"
+      put 'unlike', to: "tweets#unlike"
+    end
+  end
   root 'tweets#index'
   get '/profile/:id' => 'tweets#profile', as: 'profile'
   post '/following/:id' => 'following#create', as: 'follow'
