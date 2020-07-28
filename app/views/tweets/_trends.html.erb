@@ -1,89 +1,41 @@
-<div class="column is-one-quarter">
-  <nav class="panel">
+<div class="column is-3">
+  <!-- <nav class="panel">
     <p class="panel-heading">Trends</p>
     <a href="#" class="panel-block">Trend 1</a>
     <a href="#" class="panel-block">Trend 2</a>
     <a href="#" class="panel-block">Trend 3</a>
     <a href="#" class="panel-block">Trend 4</a>
     <a href="#" class="panel-block">Trend 5</a>
-  </nav>
+  </nav> -->
   <nav class="panel">
     <p class="panel-heading">Who to Follow</p>
-  <div class="panel-block">
-    <article class="media">
-      <div class="media-left">
-        <figure class="media-left">
-          <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/64x64.png">
-          </p>
-        </figure>
-      </div>
-      <div class="media-content">
-        <div class="content">
-          <p>
-            <strong>John Wick</strong><br/>
-            <small>@johnwick</small>
-          </p>
+    <% User.order(Arel.sql('RANDOM()')).each do |user| %>
+        <div class="panel-block">
+          <article class="media">
+            <div class="media-left">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  <% if user.avatar_shot!='' && Uploadable.count==0 %>
+                    <image src="<%= user.avatar_shot %>" alt="">
+                  <% elsif user.avatar.attached? %>
+                    <%= image_tag user.avatar, size: '64x64' %>
+                  <% else %>
+                    <img src="https://bulma.io/images/placeholders/64x64.png">
+                  <% end %>
+                </p>
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong><%= user.name %></strong><br/>
+                  <small>@<%= user.username %></small>
+                </p>
+              </div>
+            </div>
+          </article>
         </div>
-      </div>
-    </article>
-  </div>
-  <div class="panel-block">
-    <article class="media">
-      <div class="media-left">
-        <figure class="media-left">
-          <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/64x64.png">
-          </p>
-        </figure>
-      </div>
-      <div class="media-content">
-        <div class="content">
-          <p>
-            <strong>Tony Stark</strong><br/>
-            <small>@tonystark</small>
-          </p>
-        </div>
-      </div>
-    </article>
-  </div>
-  <div class="panel-block">
-    <article class="media">
-      <div class="media-left">
-        <figure class="media-left">
-          <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/64x64.png">
-          </p>
-        </figure>
-      </div>
-      <div class="media-content">
-        <div class="content">
-          <p>
-            <strong>Monkey D Luffy</strong><br/>
-            <small>@mokeydluffy</small>
-          </p>
-        </div>
-      </div>
-    </article>
-  </div>
-  <div class="panel-block">
-    <article class="media">
-      <div class="media-left">
-        <figure class="media-left">
-          <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/64x64.png">
-          </p>
-        </figure>
-      </div>
-      <div class="media-content">
-        <div class="content">
-          <p>
-            <strong>25th Baam</strong><br/>
-            <small>@25baam</small>
-          </p>
-        </div>
-      </div>
-    </article>
-  </div>
+    <% end %>
+
   </nav>
 </div>

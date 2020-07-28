@@ -1,7 +1,11 @@
 <section class="section">
   <div class="container">
     <div class="columns">
-        <%= render 'feed' %>
+        <% if user_signed_in? || (!user_signed_in? and Tweet.count!=0) %>
+          <%= render 'feed' %>
+        <% else %>
+          <%= render 'login', resource: User.new %>
+        <% end %>
         <% if user_signed_in? %>
           <%= render 'profile' %>
         <% else %>
